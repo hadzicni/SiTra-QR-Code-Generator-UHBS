@@ -20,7 +20,7 @@ The MDSi QR Code Generator is a Python program that generates QR codes for vario
 5. Run the program by executing the following command:
 
    ```bash
-   python qr_code_generator.py
+   main.py
 
 ## About
 This tool was created by Nikola Hadzic. The current version is 3.0.
