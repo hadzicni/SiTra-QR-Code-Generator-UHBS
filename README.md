@@ -1,3 +1,5 @@
+<img src="usblogo.png" width="400" height="86">
+
 # SiTra QR Code Generator
 
 ## Overview
