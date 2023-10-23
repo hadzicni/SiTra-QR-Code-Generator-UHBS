@@ -21,3 +21,18 @@ The MDSi QR Code Generator is a Python program that generates QR codes for vario
 
    ```bash
    python qr_code_generator.py
+
+## About
+This tool was created by Nikola Hadzic. The current version is 3.0.
+For any questions or issues, please contact the author at bibilionyt@gmail.com.
+
+## System Requirements
+•	Python 3.x
+•	Tkinter (usually included with Python installations)
+•	PIL (Python Imaging Library)
+•	An operating system with the ability to open the file explorer (for automatic folder opening)
+
+# License
+This software is released under the MIT License.
+
+### Note: This README is intended to provide an overview of the program and its usage. For detailed technical information, please refer to the source code.
