@@ -1,4 +1,4 @@
-# MDSi QR Code Generator
+# SiTra QR Code Generator
 
 ## Overview
 
