@@ -4,7 +4,7 @@
 
 ## Overview
 
-The MDSi QR Code Generator is a Python program that generates QR codes for various medical information, including patient and blood product details. This tool is useful for creating QR codes used in healthcare settings, such as on blood product labels and patient wristbands. 
+The MDSi QR Code Generator is a Python program that generates QR codes for various medical information, including patient and blood product details. This tool is useful for creating QR codes for testing purposes.
 
 ## Features
 
