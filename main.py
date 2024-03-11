@@ -1,7 +1,6 @@
 import random
 import datetime
 import names
-import logging
 import qrcode
 from reportlab.lib.pagesizes import letter
 from reportlab.lib.units import inch
@@ -9,8 +8,6 @@ from reportlab.pdfgen import canvas
 from io import BytesIO
 from datetime import date
 import subprocess
-
-logging.basicConfig(filename="fehlerprotokoll.log", level=logging.DEBUG)
 
 # Blood_Product_Code
 
@@ -185,7 +182,7 @@ pdf = canvas.Canvas(pdf_buffer, pagesize=letter)
 
 x, y = 50, 700
 qr_size = 100
-text_x_offset = 50    
+text_x_offset = 50
 font_size = 8
 text_max_width = 400
 
