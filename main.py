@@ -271,7 +271,7 @@ logo_y = letter[1] - logo_height - 20
 
 pdf.drawImage(logo_path, logo_x, logo_y, width=logo_width, height=logo_height, mask="auto")
 
-title = "SiTra Test QR-Codes"
+title = "SiTra Test QR-Codes UHBS"
 title_x = 40
 title_y = letter[1] - 40
 pdf.setFont("Helvetica-Bold", 22)
