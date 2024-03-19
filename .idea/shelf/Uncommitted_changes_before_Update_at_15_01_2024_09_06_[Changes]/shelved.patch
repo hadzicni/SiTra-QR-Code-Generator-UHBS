@@ -1,0 +1,170 @@
+Index: main.py
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import random\r\nimport datetime\r\nimport names\r\nimport logging\r\nimport qrcode\r\nfrom reportlab.lib.pagesizes import letter\r\nfrom reportlab.lib.units import inch\r\nfrom reportlab.pdfgen import canvas\r\nfrom io import BytesIO\r\nfrom datetime import date\r\nimport subprocess\r\n\r\nlogging.basicConfig(filename=\"fehlerprotokoll.log\", level=logging.DEBUG)\r\n\r\n# Blood_Product_Code\r\n\r\n# PREFIX = P\r\n\r\n# PATIENT_ID\r\nrandom_PID = random.sample(range(0, 9), 7)\r\nrandom_PID = ''.join(map(str, random_PID))\r\n\r\n# VISIT_ID\r\nrandom_VisitID = random.sample(range(0, 9), 8)\r\nrandom_VisitID = ''.join(map(str, random_VisitID))\r\n\r\n# CHARGE_ID\r\nrandom_chargeID = random.sample(range(0, 9), 2)\r\nrandom_chargeID = ''.join(map(str, random_chargeID))\r\nchargeID_date = date.today().strftime('%Y%m%d')\r\n\r\n# PRODUCT_ID\r\nrandom_productID = random.sample(range(0, 9), 4)\r\nrandom_productID = ''.join(map(str, random_productID))\r\nproductID_date = date.today().strftime('%y%m')\r\nrandom_productID = random.sample(range(0, 9), 2)\r\nrandom_productID = ''.join(map(str, random_productID))\r\n\r\n# BLOODEXPIRATIONDATE\r\ndate_today = datetime.date.today()\r\nbloodexpirationdate = date_today + datetime.timedelta(days=7)\r\nformatted_date = bloodexpirationdate.strftime(\"%d.%m.%Y\")\r\n\r\n# bszPATIENT_ID\r\nrandom_bluesID = random.sample(range(0, 9), 6)\r\nrandom_bluesID = ''.join(map(str, random_bluesID))\r\n\r\n# Meona_Code\r\n\r\n# PREFIX = P\r\n\r\n# PATIENTID_ID = random_PID\r\n\r\n# ADMINISTRATION_ID\r\nrandom_administrationID = random.sample(range(0, 9), 6)\r\nrandom_administrationID = ''.join(map(str, random_administrationID))\r\n\r\n# BLOODPRODUCT\r\nbloodproduct = [\"ERYTHROCYTE_CONCENTRATE\", \"FRESH_FROZEN_PLASMA\", \"FRESH_FROZEN_PLASMA_THAWED\",\r\n                \"THROMBOCYTE_CONCENTRATE\", \"SPECIFIC_THROMTOCYTE_CONCENTRATE\", \"APHERESIS_THROMBOCYTE_CONCENTRATE\"]\r\n\r\nbloodgroup = [\"Oneg|Oneg|\", \"Opos|Opos|\", \"Bneg|Bneg|\", \"Bpos|Bpos|\", \"Aneg|Aneg|\", \"Apos|Apos|\", \"ABneg|ABneg|\", \"ABpos|ABpos|\"]\r\n\r\n\r\ndef selectRandom(names):\r\n    return random.choice(names)\r\n\r\n\r\ndef selectBloodProductType(bloodproduct):\r\n    if bloodproduct == \"ERYTHROCYTE_CONCENTRATE\":\r\n        return \"EK\"\r\n    elif bloodproduct in [\"FRESH_FROZEN_PLASMA\", \"FRESH_FROZEN_PLASMA_THAWED\"]:\r\n        return \"PL\"\r\n    else:\r\n        return \"TK\"\r\n\r\n\r\nbloodproduct = selectRandom(bloodproduct)\r\nblood_product_type = selectBloodProductType(bloodproduct)\r\nbloodgroup = selectRandom(bloodgroup)\r\n\r\n\r\n# LAST_NAME\r\nfor i in range(1):\r\n    (names.get_last_name())\r\n\r\n# FIRST_NAME\r\nfor i in range(1):\r\n    (names.get_first_name())\r\n\r\n\r\n# BIRTH_DATE\r\ndef generate_random_birthdate():\r\n    year = random.randint(1950, 2003)\r\n\r\n    month = random.randint(1, 12)\r\n\r\n    if month in [4, 6, 9, 11]:\r\n        day = random.randint(1, 30)\r\n    elif month == 2:\r\n        if (year % 4 == 0 and year % 100 != 0) or (year % 400 == 0):\r\n            day = random.randint(1, 29)\r\n        else:\r\n            day = random.randint(1, 28)\r\n    else:\r\n        day = random.randint(1, 31)\r\n\r\n    birthdate = datetime.date(year, month, day)\r\n\r\n    return birthdate\r\n\r\n\r\n# STATIONID\r\nstationID = [\"4050\", \"4100\", \"4120\", \"4130\", \"4140\", \"4150\", \"4161\", \"4170\", \"4180\", \"4310\", \"4410\", \"4411\", \"4600\",\r\n             \"4610\", \"4620\", \"4640\", \"4650\", \"4660\", \"4670\", \"4690\", \"4700\", \"4710\", \"4750\", \"4770\", \"4790\", \"4800\",\r\n             \"4920\", \"5010\", \"5040\", \"5810\", \"7777\"]\r\n\r\n\r\ndef selectRandom(names):\r\n    return random.choice(names)\r\n\r\n\r\n# VISIT_ID = random_VisitID\r\n\r\n# QRCODE\r\n\r\ncontent1 = (\r\n            \"P|\" + random_PID + \"|00\" + random_VisitID + \"|\" + blood_product_type + \"|H00\" + chargeID_date + random_chargeID + \"|E\" + productID_date + \"V\" + random_productID + \"|\" + bloodgroup + \"|\" + formatted_date + \"|\" + random_bluesID)\r\ncontent2 = (\r\n            \"K^\" + random_PID + \"^\" + random_administrationID + \"^\" + bloodproduct + \"^\" + \"TEST-\" + names.get_last_name() + \"^\" + names.get_first_name() + \"^\" + generate_random_birthdate().strftime(\r\n        \"%d.%m.%Y\") + \"^\" + selectRandom(stationID))\r\ncontent3 = (random_VisitID)\r\n\r\npdf_buffer = BytesIO()\r\npdf = canvas.Canvas(pdf_buffer, pagesize=letter)\r\n\r\nx, y = 50, 700\r\nqr_size = 100\r\ntext_x_offset = 50\r\nfont_size = 8\r\ntext_max_width = 400\r\n\r\nqr1 = qrcode.QRCode(\r\n    version=1,\r\n    error_correction=qrcode.constants.ERROR_CORRECT_L,\r\n    box_size=10,\r\n    border=4,\r\n)\r\nqr1.add_data(content1)\r\nqr1.make(fit=True)\r\n\r\nqr2 = qrcode.QRCode(\r\n    version=1,\r\n    error_correction=qrcode.constants.ERROR_CORRECT_L,\r\n    box_size=10,\r\n    border=4,\r\n)\r\nqr2.add_data(content2)\r\nqr2.make(fit=True)\r\n\r\nqr3 = qrcode.QRCode(\r\n    version=1,\r\n    error_correction=qrcode.constants.ERROR_CORRECT_L,\r\n    box_size=10,\r\n    border=4,\r\n)\r\nqr3.add_data(content3)\r\nqr3.make(fit=True)\r\n\r\npdf_buffer = BytesIO()\r\npdf = canvas.Canvas(pdf_buffer, pagesize=letter)\r\n\r\nx, y = 100, 600\r\nqr_size = 150\r\n\r\ncontent1 = (\r\n            \"P|\" + random_PID + \"|00\" + random_VisitID + \"|\" + blood_product_type + \"|H00\" + chargeID_date + random_chargeID + \"|E\" + productID_date + \"V\" + random_productID + \"|\" + str(bloodgroup) + formatted_date + \"|\" + random_bluesID)\r\ncontent2 = (\r\n            \"K^\" + random_PID + \"^\" + random_administrationID + \"^\" + bloodproduct + \"^\" + \"TEST-\" + names.get_last_name() + \"^\" + \"TEST-\" + names.get_first_name() + \"^\" + generate_random_birthdate().strftime(\r\n        \"%d.%m.%Y\") + \"^\" + selectRandom(stationID))\r\ncontent3 = (random_VisitID)\r\n\r\npdf_buffer = BytesIO()\r\npdf = canvas.Canvas(pdf_buffer, pagesize=letter)\r\n\r\nx, y = 50, 700\r\nqr_size = 100\r\ntext_x_offset = 50    \r\nfont_size = 8\r\ntext_max_width = 400\r\n\r\nqr1 = qrcode.QRCode(\r\n    version=1,\r\n    error_correction=qrcode.constants.ERROR_CORRECT_L,\r\n    box_size=10,\r\n    border=4,\r\n)\r\nqr1.add_data(content1)\r\nqr1.make(fit=True)\r\n\r\nqr2 = qrcode.QRCode(\r\n    version=1,\r\n    error_correction=qrcode.constants.ERROR_CORRECT_L,\r\n    box_size=10,\r\n    border=4,\r\n)\r\nqr2.add_data(content2)\r\nqr2.make(fit=True)\r\n\r\nqr3 = qrcode.QRCode(\r\n    version=1,\r\n    error_correction=qrcode.constants.ERROR_CORRECT_L,\r\n    box_size=10,\r\n    border=4,\r\n)\r\nqr3.add_data(content3)\r\nqr3.make(fit=True)\r\n\r\npdf_buffer = BytesIO()\r\npdf = canvas.Canvas(pdf_buffer, pagesize=letter)\r\n\r\nx, y = 100, 600\r\nqr_size = 150\r\ntext_x_offset = 10\r\n\r\npdf_buffer = BytesIO()\r\npdf = canvas.Canvas(pdf_buffer, pagesize=letter)\r\n\r\nx, y = 100, 600\r\nqr_size = 150\r\ntext_x_offset = 10\r\n\r\npdf_buffer = BytesIO()\r\npdf = canvas.Canvas(pdf_buffer, pagesize=letter)\r\n\r\nx, y = 50, 700\r\nqr_size = 100\r\ntext_x_offset = 50\r\nfont_size = 8\r\ntext_max_width = 400\r\n\r\nname1 = \"Bloodproduct\"\r\nname2 = \"Meona Code\"\r\nname3 = \"Patient wristband (Fall-ID)\"\r\n\r\ny_shift = 120\r\n\r\npdf.drawInlineImage(qr1.make_image(fill_color=\"black\", back_color=\"white\"), x, y - y_shift, width=qr_size,\r\n                    height=qr_size)\r\npdf.setFont(\"Helvetica-Bold\", 12)\r\npdf.drawString(x + qr_size + 20, y + 20 - y_shift, name1)\r\npdf.setFont(\"Helvetica\", font_size)\r\npdf.drawString(x + qr_size + 20, y - 5 - y_shift, content1[:text_max_width])\r\n\r\npdf.drawInlineImage(qr2.make_image(fill_color=\"black\", back_color=\"white\"), x, y - 200 - y_shift, width=qr_size,\r\n                    height=qr_size)\r\npdf.setFont(\"Helvetica-Bold\", 12)\r\npdf.drawString(x + qr_size + 20, y - 180 - y_shift, name2)\r\npdf.setFont(\"Helvetica\", font_size)\r\npdf.drawString(x + qr_size + 20, y - 205 - y_shift, content2[:text_max_width])\r\n\r\npdf.drawInlineImage(qr3.make_image(fill_color=\"black\", back_color=\"white\"), x, y - 400 - y_shift, width=qr_size,\r\n                    height=qr_size)\r\npdf.setFont(\"Helvetica-Bold\", 12)\r\npdf.drawString(x + qr_size + 20, y - 380 - y_shift, name3)\r\npdf.setFont(\"Helvetica\", font_size)\r\npdf.drawString(x + qr_size + 20, y - 405 - y_shift, content3[:text_max_width])\r\n\r\nlogo_path = \"usblogo.png\"\r\nlogo_width = 198\r\nlogo_height = 41\r\nlogo_x = letter[0] - logo_width - 20\r\nlogo_y = letter[1] - logo_height - 20\r\n\r\npdf.drawImage(logo_path, logo_x, logo_y, width=logo_width, height=logo_height, mask=\"auto\")\r\n\r\ntitle = \"SiTra Test QR-Codes\"\r\ntitle_x = 40\r\ntitle_y = letter[1] - 40\r\npdf.setFont(\"Helvetica-Bold\", 22)\r\npdf.drawString(title_x, title_y, title)\r\n\r\naktuelle_zeit = datetime.datetime.now()\r\n\r\nformatierte_zeit = aktuelle_zeit.strftime(\"%d.%m.%Y %H:%M:%S\")\r\nprint(\"Erstellt am: \" + formatierte_zeit)\r\n\r\ncreated = \"Erstellt am: \" + formatierte_zeit\r\ncreated_x = 40\r\ncreated_y = letter[1] - 92\r\npdf.setFont(\"Helvetica\", 16)\r\npdf.drawString(created_x, created_y, created)\r\n\r\ndate_today = datetime.date.today()\r\nexpirationdate = date_today + datetime.timedelta(days=7)\r\nexpirationdate = expirationdate.strftime(\"%d.%m.%Y\")\r\n\r\nablaufdatum = \"Ablaufdatum: \" + str(expirationdate)\r\nablaufdatum_x = 40\r\nablaufdatum_y = letter[1] - 75\r\npdf.setFont(\"Helvetica\", 16)\r\npdf.drawString(ablaufdatum_x, ablaufdatum_y, ablaufdatum)\r\n\r\npdf.showPage()\r\npdf.save()\r\n\r\nuhrzeit = datetime.datetime.now().strftime('%H-%M-%S')\r\n\r\npdf_file_path = \"sitra_qr_codes\" + uhrzeit + \".pdf\"\r\n\r\nwith open(pdf_file_path, \"wb\") as f:\r\n    f.write(pdf_buffer.getvalue())\r\n\r\nsubprocess.Popen([\"start\", \"\", pdf_file_path], shell=True)\r\n\r\nwith open(\"sitra_qr_codes\" + uhrzeit + \".pdf\", \"wb\") as f:\r\n    f.write(pdf_buffer.getvalue())\r\n\r\nwith open(pdf_file_path, \"wb\") as f:\r\n    f.write(pdf_buffer.getvalue())\r\n\r\nsubprocess.Popen([\"start\", \"\", pdf_file_path], shell=True)
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/main.py b/main.py
+--- a/main.py	(revision 4c85161e85ce2bac9f28979a152031c7cd6f547f)
++++ b/main.py	(date 1702764246120)
+@@ -73,7 +73,7 @@
+         return "PL"
+     else:
+         return "TK"
+-
++    
+ 
+ bloodproduct = selectRandom(bloodproduct)
+ blood_product_type = selectBloodProductType(bloodproduct)
+Index: .idea/SiTra_QR_Code_Generator_USB.iml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<module type=\"PYTHON_MODULE\" version=\"4\">\r\n  <component name=\"NewModuleRootManager\">\r\n    <content url=\"file://$MODULE_DIR$\">\r\n      <excludeFolder url=\"file://$MODULE_DIR$/.venv\" />\r\n      <excludeFolder url=\"file://$MODULE_DIR$/venv\" />\r\n    </content>\r\n    <orderEntry type=\"jdk\" jdkName=\"Python 3.11\" jdkType=\"Python SDK\" />\r\n    <orderEntry type=\"sourceFolder\" forTests=\"false\" />\r\n  </component>\r\n</module>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/SiTra_QR_Code_Generator_USB.iml b/.idea/SiTra_QR_Code_Generator_USB.iml
+--- a/.idea/SiTra_QR_Code_Generator_USB.iml	(revision 4c85161e85ce2bac9f28979a152031c7cd6f547f)
++++ b/.idea/SiTra_QR_Code_Generator_USB.iml	(date 1705305849510)
+@@ -5,7 +5,7 @@
+       <excludeFolder url="file://$MODULE_DIR$/.venv" />
+       <excludeFolder url="file://$MODULE_DIR$/venv" />
+     </content>
+-    <orderEntry type="jdk" jdkName="Python 3.11" jdkType="Python SDK" />
++    <orderEntry type="jdk" jdkName="Python 3.13 (SiTra_QR_Code_Generator_USB)" jdkType="Python SDK" />
+     <orderEntry type="sourceFolder" forTests="false" />
+   </component>
+ </module>
+\ No newline at end of file
+Index: .idea/misc.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"ProjectRootManager\" version=\"2\" project-jdk-name=\"Python 3.11\" project-jdk-type=\"Python SDK\" />\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/misc.xml b/.idea/misc.xml
+--- a/.idea/misc.xml	(revision 4c85161e85ce2bac9f28979a152031c7cd6f547f)
++++ b/.idea/misc.xml	(date 1705305966516)
+@@ -1,4 +1,7 @@
+ <?xml version="1.0" encoding="UTF-8"?>
+ <project version="4">
+-  <component name="ProjectRootManager" version="2" project-jdk-name="Python 3.11" project-jdk-type="Python SDK" />
++  <component name="Black">
++    <option name="sdkName" value="Python 3.13 (SiTra_QR_Code_Generator_USB)" />
++  </component>
++  <component name="ProjectRootManager" version="2" project-jdk-name="Python 3.13 (SiTra_QR_Code_Generator_USB)" project-jdk-type="Python SDK" />
+ </project>
+\ No newline at end of file
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"AutoImportSettings\">\r\n    <option name=\"autoReloadType\" value=\"SELECTIVE\" />\r\n  </component>\r\n  <component name=\"ChangeListManager\">\r\n    <list default=\"true\" id=\"3e1ca668-235d-4bc3-b2ed-ee7e444af976\" name=\"Changes\" comment=\"\">\r\n      <change afterPath=\"$PROJECT_DIR$/.idea/.gitignore\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/.idea/SiTra_QR_Code_Generator_USB.iml\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/.idea/misc.xml\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/.idea/modules.xml\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/.idea/vcs.xml\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/.idea/workspace.xml\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/README.md\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/README.md\" afterDir=\"false\" />\r\n    </list>\r\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\r\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\r\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\r\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\r\n  </component>\r\n  <component name=\"Git.Settings\">\r\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$\" />\r\n  </component>\r\n  <component name=\"MarkdownSettingsMigration\">\r\n    <option name=\"stateVersion\" value=\"1\" />\r\n  </component>\r\n  <component name=\"ProjectColorInfo\">{\r\n  &quot;customColor&quot;: &quot;&quot;,\r\n  &quot;associatedIndex&quot;: 2\r\n}</component>\r\n  <component name=\"ProjectId\" id=\"2XFWpulvz1jtSFqnRgs5weZkj1V\" />\r\n  <component name=\"ProjectViewState\">\r\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\r\n    <option name=\"showLibraryContents\" value=\"true\" />\r\n  </component>\r\n  <component name=\"PropertiesComponent\">{\r\n  &quot;keyToString&quot;: {\r\n    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,\r\n    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,\r\n    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,\r\n    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,\r\n    &quot;git-widget-placeholder&quot;: &quot;main&quot;,\r\n    &quot;last_opened_file_path&quot;: &quot;C:/Users/hadzicni/Documents/Projects/SiTra_QR_Code_Generator_USB&quot;,\r\n    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,\r\n    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,\r\n    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,\r\n    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,\r\n    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,\r\n    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;\r\n  }\r\n}</component>\r\n  <component name=\"SpellCheckerSettings\" RuntimeDictionaries=\"0\" Folders=\"0\" CustomDictionaries=\"0\" DefaultDictionary=\"application-level\" UseSingleDictionary=\"true\" transferred=\"true\" />\r\n  <component name=\"TaskManager\">\r\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\r\n      <changelist id=\"3e1ca668-235d-4bc3-b2ed-ee7e444af976\" name=\"Changes\" comment=\"\" />\r\n      <created>1698225494421</created>\r\n      <option name=\"number\" value=\"Default\" />\r\n      <option name=\"presentableId\" value=\"Default\" />\r\n      <updated>1698225494421</updated>\r\n      <workItem from=\"1698225495481\" duration=\"35000\" />\r\n      <workItem from=\"1698237159785\" duration=\"689000\" />\r\n      <workItem from=\"1698239631542\" duration=\"109000\" />\r\n    </task>\r\n    <servers />\r\n  </component>\r\n  <component name=\"TypeScriptGeneratedFilesManager\">\r\n    <option name=\"version\" value=\"3\" />\r\n  </component>\r\n  <component name=\"com.intellij.coverage.CoverageDataManagerImpl\">\r\n    <SUITE FILE_PATH=\"coverage/SiTra_QR_Code_Generator_USB$main.coverage\" NAME=\"main Coverage Results\" MODIFIED=\"1698239728656\" SOURCE_PROVIDER=\"com.intellij.coverage.DefaultCoverageFileProvider\" RUNNER=\"coverage.py\" COVERAGE_BY_TEST_ENABLED=\"true\" COVERAGE_TRACING_ENABLED=\"false\" WORKING_DIRECTORY=\"$PROJECT_DIR$\" />\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+--- a/.idea/workspace.xml	(revision 4c85161e85ce2bac9f28979a152031c7cd6f547f)
++++ b/.idea/workspace.xml	(date 1705305966508)
+@@ -5,15 +5,12 @@
+   </component>
+   <component name="ChangeListManager">
+     <list default="true" id="3e1ca668-235d-4bc3-b2ed-ee7e444af976" name="Changes" comment="">
+-      <change afterPath="$PROJECT_DIR$/.idea/.gitignore" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/.idea/SiTra_QR_Code_Generator_USB.iml" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/sitra_qr_codes22-58-12.pdf" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/sitra_qr_codes23-04-06.pdf" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/SiTra_QR_Code_Generator_USB.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/SiTra_QR_Code_Generator_USB.iml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+     </list>
+     <option name="SHOW_DIALOG" value="false" />
+     <option name="HIGHLIGHT_CONFLICTS" value="true" />
+@@ -31,26 +28,39 @@
+   &quot;associatedIndex&quot;: 2
+ }</component>
+   <component name="ProjectId" id="2XFWpulvz1jtSFqnRgs5weZkj1V" />
++  <component name="ProjectLevelVcsManager">
++    <ConfirmationsSetting value="2" id="Add" />
++  </component>
+   <component name="ProjectViewState">
+     <option name="hideEmptyMiddlePackages" value="true" />
+     <option name="showLibraryContents" value="true" />
+   </component>
+-  <component name="PropertiesComponent">{
+-  &quot;keyToString&quot;: {
+-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+-    &quot;last_opened_file_path&quot;: &quot;C:/Users/hadzicni/Documents/Projects/SiTra_QR_Code_Generator_USB&quot;,
+-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
++  <component name="PropertiesComponent"><![CDATA[{
++  "keyToString": {
++    "ASKED_ADD_EXTERNAL_FILES": "true",
++    "Python.main.executor": "Run",
++    "RunOnceActivity.OpenProjectViewOnStart": "true",
++    "RunOnceActivity.ShowReadmeOnStart": "true",
++    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
++    "WebServerToolWindowFactoryState": "false",
++    "git-widget-placeholder": "main",
++    "last_opened_file_path": "C:/Users/hadzicni/Documents/Projects/MDSi_Tool_USB",
++    "node.js.detected.package.eslint": "true",
++    "node.js.detected.package.tslint": "true",
++    "node.js.selected.package.eslint": "(autodetect)",
++    "node.js.selected.package.tslint": "(autodetect)",
++    "nodejs_package_manager_path": "npm",
++    "settings.editor.selected.configurable": "com.jetbrains.python.black.configuration.BlackFormatterConfigurable",
++    "vue.rearranger.settings.migration": "true"
+   }
+-}</component>
++}]]></component>
++  <component name="SharedIndexes">
++    <attachedChunks>
++      <set>
++        <option value="bundled-python-sdk-50da183f06c8-2887949eec09-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-233.13135.95" />
++      </set>
++    </attachedChunks>
++  </component>
+   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+   <component name="TaskManager">
+     <task active="true" id="Default" summary="Default task">
+@@ -62,13 +72,21 @@
+       <workItem from="1698225495481" duration="35000" />
+       <workItem from="1698237159785" duration="689000" />
+       <workItem from="1698239631542" duration="109000" />
++      <workItem from="1702288897284" duration="67000" />
++      <workItem from="1702289649498" duration="14000" />
++      <workItem from="1702397371985" duration="250000" />
++      <workItem from="1702761913596" duration="123000" />
++      <workItem from="1705305823359" duration="143000" />
+     </task>
+     <servers />
+   </component>
+   <component name="TypeScriptGeneratedFilesManager">
+     <option name="version" value="3" />
+   </component>
++  <component name="VcsManagerConfiguration">
++    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
++  </component>
+   <component name="com.intellij.coverage.CoverageDataManagerImpl">
+-    <SUITE FILE_PATH="coverage/SiTra_QR_Code_Generator_USB$main.coverage" NAME="main Coverage Results" MODIFIED="1698239728656" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
++    <SUITE FILE_PATH="coverage/SiTra_QR_Code_Generator_USB$main.coverage" NAME="main Coverage Results" MODIFIED="1705305918581" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+   </component>
+ </project>
+\ No newline at end of file

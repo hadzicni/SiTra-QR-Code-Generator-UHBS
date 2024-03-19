@@ -4,10 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3e1ca668-235d-4bc3-b2ed-ee7e444af976" name="Changes" comment="xml/iml files">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="3e1ca668-235d-4bc3-b2ed-ee7e444af976" name="Changes" comment="update 2.8">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -59,7 +57,7 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-python-sdk-5a2391486177-2887949eec09-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-233.13763.11" />
+        <option value="bundled-python-sdk-d68999036c7f-b11f5e8da5ad-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-233.14475.56" />
       </set>
     </attachedChunks>
   </component>
@@ -83,6 +81,9 @@
       <workItem from="1706106298567" duration="1163000" />
       <workItem from="1707814215784" duration="5000" />
       <workItem from="1707814295508" duration="15000" />
+      <workItem from="1710169342407" duration="78000" />
+      <workItem from="1710759254162" duration="4000" />
+      <workItem from="1710774547383" duration="7000" />
     </task>
     <task id="LOCAL-00001" summary="xml/iml files">
       <option name="closed" value="true" />
@@ -92,7 +93,15 @@
       <option name="project" value="LOCAL" />
       <updated>1705307349955</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="update 2.8">
+      <option name="closed" value="true" />
+      <created>1710169376276</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1710169376276</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -100,7 +109,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="xml/iml files" />
-    <option name="LAST_COMMIT_MESSAGE" value="xml/iml files" />
+    <MESSAGE value="update 2.8" />
+    <option name="LAST_COMMIT_MESSAGE" value="update 2.8" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/SiTra_QR_Code_Generator_USB$main.coverage" NAME="main Coverage Results" MODIFIED="1707814297086" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />

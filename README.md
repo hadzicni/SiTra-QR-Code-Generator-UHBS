@@ -1,4 +1,10 @@
+<p align="center">
 <img src="usblogo.png" width="400" height="86">
+</p>
+<p align="center">
+<img src="app_screenshot_qr.jpg" width="400" height="520">
+</p>
+
 
 # SiTra QR Code Generator
 
