@@ -43,4 +43,4 @@ For any questions or issues, please contact the author at bibilionyt@gmail.com.
 # License
 This software is released under the MIT License.
 
-### Note: This README is intended to provide an overview of the program and its usage. For detailed technical information, please refer to the source code.
+### Note: This README is intended to provide an overview of the program and its usage. For detailed technical information, please refer to the source code or the application owner.
