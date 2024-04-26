@@ -1,23 +1,21 @@
-<p align="center">
-<img src="usblogo.png" width="400" height="86">
+<p align="left">
+<img src="usblogo.png" width="200" height="40">
 </p>
 <p align="center">
 <img src="app_screenshot_qr.jpg" width="400" height="520">
 </p>
 
-
 # SiTra QR Code Generator
 
 ## Overview
 
-The MDSi QR Code Generator is a Python program that generates QR codes for various medical information, including patient and blood product details. This tool is useful for creating QR codes used in healthcare settings, such as on blood product labels and patient wristbands. 
+The MDSi QR Code Generator is a Python program that generates QR codes for various medical information, including patient and blood product details. This tool is useful for creating QR codes used in healthcare settings, such as on blood product labels and patient wristbands.
 
 ## Features
 
 - Generates QR codes for patient and blood product data.
 - Supports customization of QR code content based on medical information.
 - QR codes are created with relevant data, including patient ID, visit ID, blood product type, and more.
-- Provides an easy-to-use command-line interface (CLI).
 
 ## Usage
 
@@ -29,18 +27,22 @@ The MDSi QR Code Generator is a Python program that generates QR codes for vario
 
    ```bash
    python main.py
+   ```
 
 ## About
+
 This tool was created by Nikola Hadzic. The current version is 3.0.
 For any questions or issues, please contact the author at bibilionyt@gmail.com.
 
 ## System Requirements
-•	Python 3.x
-•	Tkinter (usually included with Python installations)
-•	PIL (Python Imaging Library)
-•	An operating system with the ability to open the file explorer (for automatic folder opening)
+
+• Python 3.x
+• Tkinter (usually included with Python installations)
+• PIL (Python Imaging Library)
+• An operating system with the ability to open the file explorer (for automatic folder opening)
 
 # License
+
 This software is released under the MIT License.
 
 ### Note: This README is intended to provide an overview of the program and its usage. For detailed technical information, please refer to the source code or the application owner.
