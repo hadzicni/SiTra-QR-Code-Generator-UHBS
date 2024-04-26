@@ -32,7 +32,7 @@ The MDSi QR Code Generator is a Python program that generates QR codes for vario
 ## About
 
 This tool was created by Nikola Hadzic. The current version is 3.0.
-For any questions or issues, please contact the author at bibilionyt@gmail.com.
+For any questions or issues, please contact the author at nikola.hadzic@usb.ch.
 
 ## System Requirements
 
