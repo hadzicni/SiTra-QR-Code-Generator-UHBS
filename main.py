@@ -303,7 +303,7 @@ pdf.save()
 
 uhrzeit = datetime.datetime.now().strftime('%H-%M-%S')
 
-pdf_file_path = "testcodes/sitra_qr_codes" + uhrzeit + ".pdf"
+pdf_file_path = "sitra_qr_codes" + uhrzeit + ".pdf"
 
 with open(pdf_file_path, "wb") as f:
     f.write(pdf_buffer.getvalue())
