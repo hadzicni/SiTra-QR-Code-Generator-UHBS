@@ -9,6 +9,8 @@ from io import BytesIO
 from datetime import date
 import subprocess
 
+github_repo_url = "https://github.com/hadzicni/SiTra-QR-Code-Generator-UHBS"
+
 # Blood_Product_Code
 
 # PREFIX = P
@@ -297,6 +299,20 @@ ablaufdatum_x = 40
 ablaufdatum_y = letter[1] - 75
 pdf.setFont("Helvetica", 16)
 pdf.drawString(ablaufdatum_x, ablaufdatum_y, ablaufdatum)
+
+github_x = 50
+github_y = 50
+pdf.setFont("Helvetica", 12)
+pdf.drawString(github_x, github_y, "GitHub Repository:")
+
+link_text_x = github_x
+link_text_y = github_y - 20
+pdf.setFont("Helvetica", 10)
+pdf.setFillColorRGB(0, 0, 1)  # Blaue Farbe für den Link
+pdf.drawString(link_text_x, link_text_y, "https://github.com/hadzicni/SiTra-QR-Code-Generator-UHBS")
+pdf.linkURL(github_repo_url, (link_text_x, link_text_y - 12, link_text_x + 120, link_text_y - 2)) 
+
+
 
 pdf.showPage()
 pdf.save()
