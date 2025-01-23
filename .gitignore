@@ -6,10 +6,49 @@
 # Datasource local storage ignored files
 /dataSources/
 /dataSources.local.xml
-*.pdf
-fehlerprotokoll.log
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual Environment
 .venv/
+venv/
+ENV/
+
+# IDE
 .idea/
-.idea/workspace.xml
-.idea/inspectionProfiles/
 .vscode/
+*.swp
+*.swo
+
+# PyInstaller
+*.manifest
+*.spec
+!sitra_qr_generator.spec
+
+# Generated files
+*.pdf
+temp_qr_*.png
+
+# Logs
+*.log
+
+# Local settings
+settings.json

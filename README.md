@@ -1,48 +1,63 @@
-<p align="left">
-<img src="usblogo.png" width="200" height="40">
-</p>
+# SiTra QR Code Generator - UHBS
+
 <p align="center">
 <img src="app_screenshot_qr.jpg" width="400" height="520">
 </p>
 
-# SiTra QR Code Generator
-
-## Overview
-
-The MDSi QR Code Generator is a Python program that generates QR codes for various medical information, including patient and blood product details. This tool is useful for creating QR codes used in healthcare settings, such as on blood product labels and patient wristbands.
-
-## Features
-
-- Generates QR codes for patient and blood product data.
-- Supports customization of QR code content based on medical information.
-- QR codes are created with relevant data, including patient ID, visit ID, blood product type, and more.
-
-## Usage
-
-1. Make sure you have Python 3.x installed on your system.
-2. Download the source code from this repository.
-3. Open your terminal or command prompt.
-4. Navigate to the directory where the program files are located.
-5. Run the program by executing the following command:
-
-   ```bash
-   python main.py
-   ```
-
 ## About
+A specialized QR code generator developed for the University Hospital Basel (UHBS) blood bank. This application streamlines the process of generating standardized QR codes for blood products, ensuring accurate tracking and identification throughout the hospital system.
 
-This tool was created by Nikola Hadzic. The current version is 3.0.
-For any questions or issues, please contact the author at nikola.hadzic@usb.ch.
+## Key Features
+- **Blood Product QR Codes**: Generates standardized QR codes for blood products
+- **Patient Data Integration**: Supports both manual and random patient data generation
+- **Blood Group Compatibility**: Ensures correct blood group formatting and compatibility
+- **PDF Generation**: Creates professional PDFs with QR codes and hospital branding
+- **Preview Function**: View QR codes and their content before generating PDFs
+- **User-Friendly Interface**: Modern GUI with intuitive controls and date picker
 
-## System Requirements
+## Quick Start
+1. Download the latest release
+2. Run `SiTra-QR-Generator.exe`
+3. Enter or generate patient data
+4. Preview QR codes if needed
+5. Generate and save the PDF
 
-• Python 3.x
-• Tkinter (usually included with Python installations)
-• PIL (Python Imaging Library)
-• An operating system with the ability to open the file explorer (for automatic folder opening)
+## For Developers
 
-# License
+### Prerequisites
+- Python 3.8 or higher
+- Virtual environment (recommended)
 
-This software is released under the MIT License.
+### Setup
+```bash
+# Clone repository
+git clone https://github.com/hadzicni/SiTra-QR-Code-Generator-UHBS.git
+cd SiTra-QR-Code-Generator-UHBS
 
-### Note: This README is intended to provide an overview of the program and its usage. For detailed technical information, please refer to the source code or the application owner.
+# Create and activate virtual environment
+python -m venv .venv
+.venv\Scripts\activate
+
+# Install dependencies
+pip install -r requirements.txt
+
+# Run application
+python main.py
+```
+
+### Build Executable
+```bash
+pip install pyinstaller
+pyinstaller sitra_qr_generator.spec
+```
+
+## Contact
+For questions or support, contact:
+- **Developer**: Nikola Hadzic
+- **Email**: nikola.hadzic@usb.ch
+
+## License
+This project is proprietary software developed for UHBS. All rights reserved.
+
+---
+ 2025 University Hospital Basel (UHBS). Version 3.0
