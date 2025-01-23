@@ -179,7 +179,7 @@ def generate_pdf_from_qrcodes(qr_codes, patient_data):
         os.remove(temp_file)
     
     # Add logo
-    logo_path = "usblogo.png"
+    logo_path = "assets/usblogo.png"
     logo_width = 198
     logo_height = 41
     logo_x = letter[0] - logo_width - 20
@@ -277,7 +277,7 @@ def generate_pdf(first_name=None, last_name=None, blood_product=None, blood_grou
         os.remove(temp_file)
     
     # Add logo
-    logo_path = "usblogo.png"
+    logo_path = "assets/usblogo.png"
     logo_width = 198
     logo_height = 41
     logo_x = letter[0] - logo_width - 20

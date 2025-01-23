@@ -5,8 +5,8 @@ from PyInstaller.utils.hooks import collect_data_files
 
 block_cipher = None
 
-# Only collect essential babel data
-babel_data = collect_data_files('babel', includes=['*.dat'])
+# Collect babel data files
+babel_data = collect_data_files('babel')
 tkcalendar_data = collect_data_files('tkcalendar')
 
 a = Analysis(
@@ -14,7 +14,7 @@ a = Analysis(
     pathex=[],
     binaries=[],
     datas=[
-        ('usblogo.png', '.'),
+        ('assets/usblogo.png', '.'),
         *babel_data,
         *tkcalendar_data,
         ('main.py', '.'),
@@ -26,16 +26,16 @@ a = Analysis(
         'reportlab.graphics.barcode.qr',
         'reportlab.graphics.barcode.common',
         'PIL._tkinter_finder',
+        'main'
     ],
-    excludes=[
-        'matplotlib', 'numpy', 'pandas', 'scipy', 'notebook', 'test', 'tests',
-        'lib2to3', 'pygame', 'PySide2', 'PyQt5', 'PyQt6', 'IPython', 'sphinx',
-        'jedi', 'docutils', 'setuptools', 'pydoc'
-    ],
+    hookspath=[],
+    hooksconfig={},
+    runtime_hooks=[],
+    excludes=[],
     win_no_prefer_redirects=False,
     win_private_assemblies=False,
     cipher=block_cipher,
-    noarchive=True,  # Changed to True for faster startup
+    noarchive=False,
 )
 
 # Add version info
@@ -63,7 +63,7 @@ exe = EXE(
     target_arch=None,
     codesign_identity=None,
     entitlements_file=None,
-    icon='appicon.ico',
+    icon='assets/appicon.ico',
     version='file_version_info.txt',
     uac_admin=False,
     uac_uiaccess=False
