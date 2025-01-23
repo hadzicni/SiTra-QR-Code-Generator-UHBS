@@ -42,7 +42,7 @@ python -m venv .venv
 pip install -r requirements.txt
 
 # Run application
-python main.py
+python gui.py
 ```
 
 ### Build Executable

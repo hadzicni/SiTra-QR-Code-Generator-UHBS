@@ -5,31 +5,41 @@ from PyInstaller.utils.hooks import collect_data_files
 
 block_cipher = None
 
-# Collect babel data files
-babel_data = collect_data_files('babel', include_py_files=True)
+# Only collect essential babel data
+babel_data = collect_data_files('babel', includes=['*.dat'])
+tkcalendar_data = collect_data_files('tkcalendar')
 
 a = Analysis(
-    ['main.py'],
+    ['gui.py'],
     pathex=[],
     binaries=[],
-    datas=[('usblogo.png', '.'), *babel_data],
+    datas=[
+        ('usblogo.png', '.'),
+        *babel_data,
+        *tkcalendar_data,
+        ('main.py', '.'),
+    ],
     hiddenimports=[
         'babel.numbers',
         'babel.dates',
         'tkcalendar',
         'reportlab.graphics.barcode.qr',
         'reportlab.graphics.barcode.common',
-        'PIL._tkinter_finder'
+        'PIL._tkinter_finder',
     ],
-    hookspath=[],
-    hooksconfig={},
-    runtime_hooks=[],
-    excludes=[],
+    excludes=[
+        'matplotlib', 'numpy', 'pandas', 'scipy', 'notebook', 'test', 'tests',
+        'lib2to3', 'pygame', 'PySide2', 'PyQt5', 'PyQt6', 'IPython', 'sphinx',
+        'jedi', 'docutils', 'setuptools', 'pydoc'
+    ],
     win_no_prefer_redirects=False,
     win_private_assemblies=False,
     cipher=block_cipher,
-    noarchive=False,
+    noarchive=True,  # Changed to True for faster startup
 )
+
+# Add version info
+a.datas += [('file_version_info.txt', 'file_version_info.txt', 'DATA')]
 
 pyz = PYZ(a.pure, a.zipped_data, cipher=block_cipher)
 
@@ -53,6 +63,8 @@ exe = EXE(
     target_arch=None,
     codesign_identity=None,
     entitlements_file=None,
-    icon='usblogo.png',
-    version='file_version_info.txt'
+    icon='appicon.ico',
+    version='file_version_info.txt',
+    uac_admin=False,
+    uac_uiaccess=False
 )
