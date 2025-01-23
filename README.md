@@ -1,7 +1,7 @@
 # SiTra QR Code Generator - UHBS
 
 <p align="center">
-<img src="app_screenshot_qr.jpg" width="400" height="520">
+<img src="assets/app_screenshot_qr.jpg" width="400" height="520">
 </p>
 
 ## About
