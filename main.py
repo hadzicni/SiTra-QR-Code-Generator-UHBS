@@ -153,79 +153,31 @@ def generate_pdf_from_qrcodes(qr_codes, patient_data):
     # QR code parameters
     x, y = 50, 700
     qr_size = 100
-    text_x_offset = 50
     font_size = 8
     text_max_width = 400
-    
-    # Save QR codes to temporary files and add to PDF
+
+    # Save QR codes to PDF
     titles = ["Bloodproduct", "Meona Code", "Patient wristband (Fall-ID)"]
     contents = generate_content_strings(patient_data)
     y_positions = [y - 120, y - 320, y - 520]
     
     for i, (qr_code, title, content, y_pos) in enumerate(zip(qr_codes, titles, contents, y_positions)):
-        # Save temporary file
-        temp_file = f"temp_qr_{i}.png"
-        with open(temp_file, "wb") as f:
-            f.write(qr_code)
+        # Convert QR code to BytesIO
+        qr_code_buffer = BytesIO()
+        qr_code.save(qr_code_buffer, format="PNG")
+        qr_code_buffer.seek(0)
         
         # Add QR code and text to PDF
-        pdf.drawInlineImage(temp_file, x, y_pos, width=qr_size, height=qr_size)
+        pdf.drawInlineImage(Image.open(qr_code_buffer), x, y_pos, width=qr_size, height=qr_size)
         pdf.setFont("Helvetica-Bold", 12)
         pdf.drawString(x + qr_size + 20, y_pos + 20, title)
         pdf.setFont("Helvetica", font_size)
         pdf.drawString(x + qr_size + 20, y_pos - 5, content[:text_max_width])
-        
-        # Clean up temp file
-        os.remove(temp_file)
     
-    # Add logo
-    logo_path = "assets/usblogo.png"
-    logo_width = 198
-    logo_height = 41
-    logo_x = letter[0] - logo_width - 20
-    logo_y = letter[1] - logo_height - 20
-    pdf.drawImage(logo_path, logo_x, logo_y, width=logo_width, height=logo_height, mask="auto")
-    
-    # Add title
-    title = "SiTra Test QR-Codes UHBS"
-    title_x = 40
-    title_y = letter[1] - 40
-    pdf.setFont("Helvetica-Bold", 22)
-    pdf.drawString(title_x, title_y, title)
-    
-    # Add creation time
-    aktuelle_zeit = datetime.datetime.now()
-    formatierte_zeit = aktuelle_zeit.strftime("%d.%m.%Y %H:%M:%S")
-    created = "Erstellt am: " + formatierte_zeit
-    created_x = 40
-    created_y = letter[1] - 92
-    pdf.setFont("Helvetica", 16)
-    pdf.drawString(created_x, created_y, created)
-    
-    # Add expiration date
-    date_today = datetime.date.today()
-    expirationdate = date_today + datetime.timedelta(days=patient_data['expiry_days'])
-    expirationdate = expirationdate.strftime("%d.%m.%Y")
-    ablaufdatum = "Ablaufdatum: " + str(expirationdate)
-    ablaufdatum_x = 40
-    ablaufdatum_y = letter[1] - 75
-    pdf.setFont("Helvetica", 16)
-    pdf.drawString(ablaufdatum_x, ablaufdatum_y, ablaufdatum)
-    
-    # Add GitHub link
-    github_x = 50
-    github_y = 50
-    pdf.setFont("Helvetica", 12)
-    pdf.drawString(github_x, github_y, "GitHub Repository:")
-    link_text_x = github_x
-    link_text_y = github_y - 20
-    pdf.setFont("Helvetica", 10)
-    pdf.setFillColorRGB(0, 0, 1)
-    pdf.drawString(link_text_x, link_text_y, GITHUB_REPO_URL)
-    pdf.linkURL(GITHUB_REPO_URL, (link_text_x, link_text_y - 12, link_text_x + 120, link_text_y - 2))
-    
+    # Finalize the PDF
     pdf.showPage()
     pdf.save()
+    pdf_buffer.seek(0)
     return pdf_buffer
 
 def generate_pdf(first_name=None, last_name=None, blood_product=None, blood_group=None, station_id=None, birth_date=None, expiry_days=7):
